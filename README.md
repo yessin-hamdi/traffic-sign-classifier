@@ -2,7 +2,7 @@
 
 A CNN-based traffic sign classifier, built from the ground up to learn computer vision and deep learning fundamentals for automotive perception / ADAS applications. This project complements [Racing Line Optimizer](https://github.com/yessin-hamdi/racing-line-optimizer) (mathematics, optimization, algorithms) by covering the AI / computer vision side of an automotive-AI portfolio.
 
-## Status: 🚧 In Progress
+## Status:  In Progress
 
 Baseline CNN trained and evaluated. Currently working on regularization (dropout, data augmentation, early stopping) to address overfitting observed in the baseline.
 
