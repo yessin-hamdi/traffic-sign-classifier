@@ -4,7 +4,7 @@ A CNN-based traffic sign classifier, built from the ground up to learn computer 
 
 ## Status:  In Progress
 
-Baseline CNN trained and evaluated. Currently working on regularization (dropout, data augmentation, early stopping) to address overfitting observed in the baseline.
+Regularized CNN trained with data augmentation, dropout, and early stopping — 91.91% test accuracy. Currently moving into full evaluation (confusion matrix, per-class metrics).
 
 ## Dataset
 
@@ -25,23 +25,29 @@ pip install -r requirements.txt
 ```bash
 python src/dataset.py     # downloads GTSRB, verifies loading
 python src/visualize.py   # sample images + class distribution
-python src/train.py       # trains the CNN, saves weights
+python src/train.py       # trains the CNN with augmentation/dropout/early stopping, saves best checkpoint
 ```
 
 ## Architecture
 
-Simple CNN: `Input(32×32×3) → Conv(3→16)+ReLU+Pool → Conv(16→32)+ReLU+Pool → Flatten → FC(128) → FC(43)`. ~273K parameters.
+Simple CNN: `Input(32×32×3) → Conv(3→16)+ReLU+Pool → Conv(16→32)+ReLU+Pool → Flatten → FC(128)+Dropout(0.5) → FC(43)`. ~273K parameters.
 
-## Results so far (Baseline v1)
+**Training setup:** data augmentation (random rotation ±10°, translation ±10%, color jitter) applied to training data only; dropout (p=0.5) on the FC layer; early stopping (patience=5) saving only the best-performing checkpoint.
 
-- Test accuracy: 84.88% (peak: 85.64% at epoch 6)
-- Clear overfitting past epoch 6 (training loss keeps dropping, test accuracy plateaus/degrades)
-- Full analysis: [`notebooks/02_training_results.ipynb`](notebooks/02_training_results.ipynb)
+## Results
+
+| Version | Peak test accuracy | Notes |
+|---|---|---|
+| v1 — baseline | 85.64% | No regularization; clear overfitting (train loss to 0.04 while accuracy plateaued/degraded) |
+| v2 — + augmentation, dropout, early stopping | 89.63% | Regularized, but epoch budget (30) capped before convergence |
+| v3 — same as v2, full epoch budget | 91.91% | Early stopping triggered naturally at epoch 49 (best: epoch 44) |
+
+Full analysis and charts: [`notebooks/02_training_results.ipynb`](notebooks/02_training_results.ipynb), [`notebooks/03_v2_results.ipynb`](notebooks/03_v2_results.ipynb), [`notebooks/04_v3_results.ipynb`](notebooks/04_v3_results.ipynb).
 
 ## Roadmap
 
-- [ ] Early stopping (save best model, not just final epoch)
-- [ ] Data augmentation
-- [ ] Dropout regularization
+- [x] Early stopping (save best model, not just final epoch)
+- [x] Data augmentation
+- [x] Dropout regularization
 - [ ] Full evaluation: confusion matrix, per-class precision/recall
 - [ ] Final write-up and limitations
