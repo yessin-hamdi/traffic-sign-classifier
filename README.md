@@ -3,9 +3,7 @@
 A CNN-based traffic sign classifier, built from the ground up to learn computer vision and deep learning fundamentals for automotive perception / ADAS applications. This project complements [Racing Line Optimizer](https://github.com/yessin-hamdi/racing-line-optimizer) (mathematics, optimization, algorithms) by covering the AI / computer vision side of an automotive-AI portfolio.
 
 ## Status:  V1 complete
-
-Regularized CNN trained with data augmentation, dropout, and early stopping — 91.91% test accuracy. Currently moving into full evaluation (confusion matrix, per-class metrics).
-
+Regularized CNN trained with data augmentation, dropout, and early stopping — 91.91% test accuracy. Full evaluation completed (confusion matrix, per-class precision/recall/F1), with documented limitations and identified error clusters — see below.
 ## Dataset
 
 [German Traffic Sign Recognition Benchmark (GTSRB)](https://benchmark.ini.rub.de/) — 43 traffic sign classes, ~26,600 training images / 12,630 test images, real photographs (varying lighting, angle, blur). Images resized to 32×32 RGB. Note: classes are imbalanced (150–1,500 images per class).
@@ -13,8 +11,8 @@ Regularized CNN trained with data augmentation, dropout, and early stopping — 
 ## Setup
 
 ```bash
-git clone https://github.com/yessin-hamdi/trafic-sign-project.git
-cd trafic-sign-project
+git clone https://github.com/yessin-hamdi/traffic-sign-classifier.git
+cd traffic-sign-classifier
 python -m venv venv
 source venv/Scripts/activate    # Windows Git Bash
 pip install -r requirements.txt
